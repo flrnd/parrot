@@ -1,7 +1,9 @@
 # parrot
-Parrot is a simple passphrase generator based on [Diceware](https://theworld.com/~reinhold/diceware.html).
+
+Parrot is a simple passphrase generator based on [Diceware](https://theworld.com/~reinhold/diceware.html) (You can download a word list from that link).
 
 Right now, it will generate a 8 words passphrase delimited with "-".
 
 ## TODO
+
 Add command line options
