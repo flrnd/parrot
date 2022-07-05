@@ -36,7 +36,7 @@ func GeneratePassphrase(wordlist []string, delim string) string {
 	c := cases.Title(language.Und)
 	for i, w := range wordlist {
 		sb.WriteString(c.String(w))
-		if i < len(w) {
+		if i < (len(wordlist) - 1) {
 			sb.WriteString(delim)
 		}
 	}
