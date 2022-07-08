@@ -1,8 +1,9 @@
 package util
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRollDices(t *testing.T) {
@@ -21,7 +22,7 @@ func TestRollDices(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := RollDices(tt.args.n, tt.args.d); !reflect.DeepEqual(got, tt.want) {
+			if got := RollDices(tt.args.n, tt.args.d); !assert.ElementsMatch(t, tt.want, got) {
 				t.Errorf("RollDices() = %v, want %v", got, tt.want)
 			}
 		})
