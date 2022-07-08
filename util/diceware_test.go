@@ -28,3 +28,24 @@ func TestRollDices(t *testing.T) {
 		})
 	}
 }
+
+func TestDicesToNumber(t *testing.T) {
+	type args struct {
+		dices []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"Three rolls, 3 sides", args{[]int{1, 3, 2}}, 132},
+		{"Nine rolls 6 sides", args{[]int{6, 3, 3, 2, 5, 3, 1, 5, 4}}, 633253154},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := DicesToNumber(tt.args.dices); got != tt.want {
+				t.Errorf("DicesToNumber() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
