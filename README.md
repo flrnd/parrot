@@ -8,7 +8,7 @@ Right now, it will generate a 8 words passphrase delimited with "-", depending o
 
 Inside db, there is another directory (initDB) with a small program to initialize your database. At this moment, I'm using the diceware list, but you can initialize with your own set off words, just remember to create the list as documented on the diceware text.
 
-## TODO
+### TODO
 
 Add command line options.
 Ease database init and wordlist configuration.
