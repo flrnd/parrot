@@ -10,5 +10,5 @@ Inside db, there is another directory (initDB) with a small program to initializ
 
 ## TODO
 
-Add command line options
-Ease database init and wordlist configuration
+Add command line options.
+Ease database init and wordlist configuration.
