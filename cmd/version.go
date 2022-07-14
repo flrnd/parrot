@@ -7,7 +7,7 @@ import (
 )
 
 var appName = "parrot"
-var appVersion = "v0.0.2"
+var appVersion = "v0.0.3"
 
 func init() {
 	rootCmd.AddCommand(versionCmd)
