@@ -50,7 +50,7 @@ func parseArgs(args []string) (l int, d string) {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-		return length, "-"
+		return length, " "
 	case 2:
 		length, err := strconv.Atoi(args[0])
 		if err != nil {
