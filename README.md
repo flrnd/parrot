@@ -9,6 +9,9 @@ $ parrot generate 6 "-"
 Ella-Woo-Steak-Keats-Shift-Chile
 ```
 
-## TODO
+## Init
+Inside db, there is another directory (initDB) with a small program to initialize your database. At this moment, I'm using the diceware list, but you can initialize with your own set off words, just remember to create the list as documented on the diceware text.
 
-Parrot depends on a small sqlite database. Easier db customization and initialization.
+### TODO
+
+Ease database init and wordlist configuration.
