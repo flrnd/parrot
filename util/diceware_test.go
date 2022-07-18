@@ -49,3 +49,25 @@ func TestDicesToNumber(t *testing.T) {
 		})
 	}
 }
+
+func TestGeneratePassphrase(t *testing.T) {
+	type args struct {
+		wordlist []string
+		delim    string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"Five words passphrase", args{[]string{"one", "two", "three", "four", "five"}, " "}, "One Two Three Four Five"},
+		{"two words passphrase with # delimiter", args{[]string{"one", "two"}, "#"}, "One#Two"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GeneratePassphrase(tt.args.wordlist, tt.args.delim); got != tt.want {
+				t.Errorf("GeneratePassphrase() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
