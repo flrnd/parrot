@@ -18,7 +18,7 @@ func init() {
 var generateCmd = &cobra.Command{
 	Use:   "generate [length] [delimiter]",
 	Short: "Generate a secure passphrase",
-	Long:  "Generate a secure 8 words long passphrase (~200bits entropy).\nExample: parrot 5 '-'\n",
+	Long:  "Generate a secure 8 words long passphrase (~200bits entropy).\nExample: parrot generate 5 '-'\n",
 	Args:  cobra.RangeArgs(0, 2),
 	Run: func(cmd *cobra.Command, args []string) {
 		length, delimiter := parseArgs(args)
