@@ -11,8 +11,7 @@ Ella-Woo-Steak-Keats-Shift-Chile
 
 ## Init
 
-Inside db, there is another directory (initDB) with a small program to initialize your database. At this moment, I'm using the diceware list, but you can initialize with your own set off words, just remember to create the list as documented on the diceware text.
+Download a word list from https://theworld.com/~reinhold/diceware.html (If you download one from this site, remember to remove the PGP signatures and leave just the words) or create your own.
 
-### TODO
+Then run: `parrot init my_diceware_long_word_list.txt` to initialize the database.
 
-Ease database init and wordlist configuration.
