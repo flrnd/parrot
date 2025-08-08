@@ -28,13 +28,14 @@ var generateCmd = &cobra.Command{
 
 		words := make([]string, length)
 
-		for i := 0; i < length; i++ {
+		for i := range length {
 			dices := util.RollDices(5, 6)
 			id := util.DicesToNumber(dices)
 
 			word := db.Find(id, database)
 			words[i] = word
 		}
+
 		defer database.Close()
 
 		passphrase := util.GeneratePassphrase(words, delimiter)
