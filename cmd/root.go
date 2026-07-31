@@ -1,3 +1,4 @@
+// Package cmd implements Parrot's command-line interface.
 package cmd
 
 import (
