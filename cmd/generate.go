@@ -1,14 +1,17 @@
 package cmd
 
 import (
-	"database/sql"
 	"fmt"
-	"os"
 	"strconv"
 
-	"github.com/flrnd/parrot/db"
-	"github.com/flrnd/parrot/util"
+	"github.com/flrnd/parrot/database"
+	"github.com/flrnd/parrot/diceware"
 	"github.com/spf13/cobra"
+)
+
+const (
+	defaultLength    = 8
+	defaultDelimiter = " "
 )
 
 func init() {
@@ -18,47 +21,54 @@ func init() {
 var generateCmd = &cobra.Command{
 	Use:   "generate [length] [delimiter]",
 	Short: "Generate a secure passphrase",
-	Long:  "Generate a secure 8 words long passphrase (~200bits entropy).\nExample: parrot generate 5 '-'\n",
+	Long:  `Generate a secure Diceware passphrase.\nExample: parrot generate 5 "-"`,
 	Args:  cobra.RangeArgs(0, 2),
-	Run: func(cmd *cobra.Command, args []string) {
-		length, delimiter := parseArgs(args)
-		dbPath := db.Path()
-		database, err := sql.Open("sqlite3", dbPath)
-		util.Check(err)
+	RunE: func(cmd *cobra.Command, args []string) error {
+		length, delimiter, err := parseArgs(args)
+		if err != nil {
+			return err
+		}
+
+		db, err := database.Open()
+		if err != nil {
+			return err
+		}
+		defer db.Close()
 
 		words := make([]string, length)
 
-		for i := range length {
-			dices := util.RollDices(5, 6)
-			id := util.DicesToNumber(dices)
+		for i := range words {
+			id, err := diceware.RollDicewareIndex()
+			if err != nil {
+				return err
+			}
 
-			word := db.Find(id, database)
-			words[i] = word
+			words[i], err = db.Word(id)
+			if err != nil {
+				return err
+			}
 		}
 
-		defer database.Close()
-
-		passphrase := util.GeneratePassphrase(words, delimiter)
-		fmt.Println(passphrase)
+		fmt.Println(diceware.GeneratePassphrase(words, delimiter))
+		return nil
 	},
 }
 
-func parseArgs(args []string) (l int, d string) {
-	switch len(args) {
-	case 1:
-		length, err := strconv.Atoi(args[0])
+func parseArgs(args []string) (int, string, error) {
+	length := defaultLength
+	delimiter := defaultDelimiter
+
+	if len(args) > 0 {
+		n, err := strconv.Atoi(args[0])
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
+			return 0, "", err
 		}
-		return length, " "
-	case 2:
-		length, err := strconv.Atoi(args[0])
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			os.Exit(1)
-		}
-		return length, args[1]
+		length = n
 	}
-	return 8, " "
+
+	if len(args) > 1 {
+		delimiter = args[1]
+	}
+
+	return length, delimiter, nil
 }

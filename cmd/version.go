@@ -6,8 +6,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var appName = "parrot"
-var appVersion = "v1.0.0"
+var (
+	appName    = "parrot"
+	appVersion = "v1.1.0"
+)
 
 func init() {
 	rootCmd.AddCommand(versionCmd)

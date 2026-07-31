@@ -1,10 +1,7 @@
 package cmd
 
 import (
-	"os"
-
-	"github.com/flrnd/parrot/db"
-	"github.com/flrnd/parrot/util"
+	"github.com/flrnd/parrot/database"
 	"github.com/spf13/cobra"
 )
 
@@ -13,15 +10,14 @@ func init() {
 }
 
 var initCmd = &cobra.Command{
-	Use:   "init my_diceware_word_list.asc",
-	Short: "Initialize the diceware databse",
-	Long:  "Initialize the diceware database. Download a file list from https://theworld.com/~reinhold/diceware.html or create your own.",
-	Args:  cobra.MinimumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		f, err := os.Open(args[0])
+	Use:   "init <diceware-wordlist>",
+	Short: "Initialize the Diceware database",
+	Long: `Initialize the local Diceware database.
 
-		util.Check(err)
-
-		db.Init(f)
+The wordlist should follow the standard Diceware format, with each line
+containing a five-digit dice index and its corresponding word.`,
+	Args: cobra.ExactArgs(1),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return database.Init(args[0])
 	},
 }
